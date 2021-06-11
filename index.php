@@ -21,10 +21,11 @@
   require('db_connect.php');
   $boards = $db->prepare('SELECT * FROM boards ORDER BY id ASC');
   $boards->execute();
+  $fetched_boards = $boards->fetchAll(PDO::FETCH_ASSOC);
   ?>
     <article>
       <?php 
-      while ($board = $boards->fetch()) {
+      foreach ($fetched_boards as $board) {
           echo '<hr>No: '.$board['id'].'<br>名前:' . $board['name'] . '<br>投稿内容: '.$board['content'].'<hr><br>';
       }
       ?>
